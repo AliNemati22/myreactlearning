@@ -82,6 +82,7 @@ class App extends Component {
               age={person.age}
               key = {person.id}
               changed={(event) => this.namechangedHandler(event,person.id)}
+              
               />
             })
           }
