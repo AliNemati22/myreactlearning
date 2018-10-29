@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
-import './Person/Person.css'
+import './Person/Person.css';
+import Radium from 'radium';
 class App extends Component {
 
   state = {
@@ -60,11 +61,17 @@ class App extends Component {
   render() {
 
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color:'white',
       font:'tahoma',
       border:'2x solid blue',
       padding:'8px',
-      cursor:'pointer'
+      cursor:'pointer',
+      ':hover':
+      {
+        backgroundColor:'lightgreen',
+        color:'black'
+      }
 
     };
 
@@ -82,18 +89,37 @@ class App extends Component {
               age={person.age}
               key = {person.id}
               changed={(event) => this.namechangedHandler(event,person.id)}
-              
+
               />
             })
           }
         </div>
+       
       );
+      style.backgroundColor='red';
+      style[':hover']=
+      {
+        backgroundColor:'salmon',
+        color:'black'
+      };
     }
+
+    let classes=[];
+    if(this.state.persons.length <=2)
+    {
+      classes.push('red');
+     }
+
+     if(this.state.persons.length <=1)
+     {
+       classes.push('bold');
+      }
+
     return (
       <div className="App">
       <h1>Hi I am a React App </h1>
-      <p>this is really working!!!!</p>
-      <button style={style} onClick={this.togglePersonsHandler}> Switch Name</button>
+      <p className={classes.join(' ')}> this is really working!!!!</p>
+      <button style={style} onClick={this.togglePersonsHandler}>Toggle  Persons</button>
       {persons}
       </div>
 
@@ -104,4 +130,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);
