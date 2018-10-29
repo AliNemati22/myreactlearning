@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
 import './Person/Person.css';
-import Radium from 'radium';
+import Radium,{StyleRoot} from 'radium';
 class App extends Component {
 
   state = {
@@ -116,12 +116,14 @@ class App extends Component {
       }
 
     return (
+      <StyleRoot>
       <div className="App">
       <h1>Hi I am a React App </h1>
       <p className={classes.join(' ')}> this is really working!!!!</p>
       <button style={style} onClick={this.togglePersonsHandler}>Toggle  Persons</button>
       {persons}
       </div>
+      </StyleRoot>
 
 
     );
