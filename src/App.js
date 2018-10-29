@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import myStyles from'./App.css';
 import Person from './Person/Person';
-import './Person/Person.css';
 import Radium,{StyleRoot} from 'radium';
 class App extends Component {
 
@@ -32,14 +30,12 @@ class App extends Component {
   namechangedHandler = (event,id) =>
   {
     const personindex= this.state.persons.findIndex(p =>{
-      return p.id === id;
+      return p.userid === id;
     });
 
     const person = {...this.state.persons[personindex]};
     person.name =event.target.value;
-
     const persons =[...this.state.persons];
-
     persons[personindex] = person;
     this.setState({persons:persons})
     };
@@ -60,22 +56,23 @@ class App extends Component {
 
   render() {
 
-    const style = {
-      backgroundColor: 'green',
-      color:'white',
-      font:'tahoma',
-      border:'2x solid blue',
-      padding:'8px',
-      cursor:'pointer',
-      ':hover':
-      {
-        backgroundColor:'lightgreen',
-        color:'black'
-      }
+    // const style = {
+    //   backgroundColor: 'green',
+    //   color:'white',
+    //   font:'tahoma',
+    //   border:'2x solid blue',
+    //   padding:'8px',
+    //   cursor:'pointer',
+    //   ':hover':
+    //   {
+    //     backgroundColor:'lightgreen',
+    //     color:'black'
+    //   }
 
-    };
+    // };
 
     let persons=null;
+     let btnclass='';
 
     if(this.state.showPersons)
     {
@@ -89,47 +86,40 @@ class App extends Component {
               age={person.age}
               key = {person.id}
               changed={(event) => this.namechangedHandler(event,person.id)}
-
               />
             })
           }
         </div>
        
       );
-      style.backgroundColor='red';
-      style[':hover']=
-      {
-        backgroundColor:'salmon',
-        color:'black'
-      };
+     
+      btnclass=myStyles.red;
     }
 
     let classes=[];
     if(this.state.persons.length <=2)
     {
-      classes.push('red');
-     }
+      classes.push(myStyles.red);
+    }
 
      if(this.state.persons.length <=1)
      {
-       classes.push('bold');
+       classes.push(myStyles.bold);
       }
 
     return (
       <StyleRoot>
-      <div className="App">
+      <div className={myStyles.App}>
       <h1>Hi I am a React App </h1>
       <p className={classes.join(' ')}> this is really working!!!!</p>
-      <button style={style} onClick={this.togglePersonsHandler}>Toggle  Persons</button>
+      <button  
+        className={btnclass.red}
+         onClick={this.togglePersonsHandler}>Toggle  Persons</button>
       {persons}
       </div>
       </StyleRoot>
-
-
     );
-
-  // return React.createElement('div',{className:'App'},React.createElement('h1',null,'Does this work how?'))
   }
 }
 
-export default Radium(App);
+export default Radium( App);
